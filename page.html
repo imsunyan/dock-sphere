@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0; /* 背景颜色 */
+      }
+      .button {
+        padding: 10px 20px;
+        font-size: 16px;
+        color: white;
+        background-color: #007bff; /* 按钮背景颜色 */
+        border: none;
+        margin: 5px;
+        border-radius: 5px; /* 圆角 */
+        cursor: pointer;
+        transition: background-color 0.3s; /* 背景颜色过渡效果 */
+      }
+      .button:hover {
+        background-color: #0056b3; /* 悬停时的背景颜色 */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="button" onclick="sendCommand('start-running')">开始运行</div>
+    <div class="button" onclick="sendCommand('stop-running')">结束运行</div>
+    <div class="button" onclick="sendCommand('reset-running')">重置</div>
+  </body>
+  <script>
+    const sendCommand = (command) => {
+      window.electron.send(command);
+    };
+  </script>
+</html>

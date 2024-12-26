@@ -1,0 +1,60 @@
+/* 悬浮图标的基础样式 */
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent;
+
+}
+.floating-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #007bff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: idle 3s infinite;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+/* 运行中动画效果 */
+.floating-icon.running {
+  animation: spin 1s linear infinite;
+  background-color: #28a745;
+}
+
+/* 运行完成动画效果 */
+.floating-icon.completed {
+  background-color: #ffc107;
+  animation: bounce 1s infinite;
+}
+
+/* 动画 - 闲置状态 */
+@keyframes idle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* 动画 - 旋转（运行中） */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 动画 - 弹跳（运行完成） */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "dock-sphere",
+  "version": "1.0.0",
+  "description": "桌面悬浮球",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imsunyan/dock-sphere.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imsunyan/dock-sphere/issues"
+  },
+  "homepage": "https://github.com/imsunyan/dock-sphere#readme",
+  "dependencies": {
+    "electron": "^33.2.1",
+    "electron-reload": "^2.0.0-alpha.1"
+  }
+}
