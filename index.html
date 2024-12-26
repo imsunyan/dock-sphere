@@ -12,18 +12,16 @@
   <script>
     const icon = document.getElementById("icon");
     icon.addEventListener("dblclick", () => {
-      console.log(isDragging);
       window.electron.send("open-main-window"); // 使用 window.electron 发送消息
     });
 
-    window.electron.receive(
-      "start-running",
-      () => (icon.className = "floating-icon start-running")
-    );
+    window.electron.receive("start-running", () => {
+      icon.className = "floating-icon running";
+    });
 
     window.electron.receive(
       "stop-running",
-      () => (icon.className = "floating-icon stop-running")
+      () => (icon.className = "floating-icon completed")
     );
     window.electron.receive(
       "reset-running",
@@ -41,7 +39,7 @@
 
     document.addEventListener("mousemove", (event) => {
       if (isDragging) {
-        window.electron.send("move-icon", {
+        window.electron.send("move-float-icon", {
           x: event.screenX - offset.x,
           y: event.screenY - offset.y,
         });

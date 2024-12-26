@@ -15,9 +15,6 @@ function createFloatWindow() {
   floatWindow = new BrowserWindow({
     frame: false,
     transparent: true,
-    alwaysOnTop: true,
-    resizable: false,
-    skipTaskbar: true,
     devTools: true, // 启用开发者工具
     webPreferences: {
       preload: path.join(__dirname, "preload.js"), // 使用绝对路径
@@ -42,25 +39,17 @@ function createFloatWindow() {
   });
 }
 
-ipcMain.on("start-running", (event) => {
+function sendCommandToFloatIns(command) {
   if (floatWindow) {
-    floatWindow.webContents.send("start-running");
+    floatWindow.webContents.send(command);
   }
-});
+}
 
-ipcMain.on("stop-running", (event) => {
-  if (floatWindow) {
-    floatWindow.webContents.send("stop-running");
-  }
-});
+ipcMain.on("start-running", sendCommandToFloatIns.bind(this, "start-running"));
+ipcMain.on("stop-running", sendCommandToFloatIns.bind(this, "stop-running"));
+ipcMain.on("reset-running", sendCommandToFloatIns.bind(this, "reset-running"));
 
-ipcMain.on("reset-running", (event) => {
-  if (floatWindow) {
-    floatWindow.webContents.send("reset-running");
-  }
-});
-
-ipcMain.on("move-icon", (event, position) => {
+ipcMain.on("move-float-icon", (event, position) => {
   if (floatWindow) {
     const { x, y } = position;
     floatWindow.setBounds({
@@ -85,7 +74,8 @@ ipcMain.on("open-main-window", () => {
     },
   });
   mainWindow.loadURL("file://" + __dirname + "/page.html");
-
+  // 打开调试面板
+  mainWindow.webContents.openDevTools();
   mainWindow.on("close", (e) => {
     e.preventDefault();
     mainWindow.hide();

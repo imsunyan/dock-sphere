@@ -1,5 +1,5 @@
 // preload.js
-const { contextBridge, ipcRenderer, remote } = require("electron");
+const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("electron", {
   send: (channel, data) => {
