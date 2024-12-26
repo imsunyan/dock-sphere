@@ -16,6 +16,7 @@ function createFloatWindow() {
     frame: false,
     transparent: true,
     devTools: true, // 启用开发者工具
+    hasShadow: false, //不显示阴影
     webPreferences: {
       preload: path.join(__dirname, "preload.js"), // 使用绝对路径
       contextIsolation: true, // 启用上下文隔离
