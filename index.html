@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./style/index.css" />
   </head>
   <body>
-    <div id="icon" class="floating-icon"></div>
+    <div id="icon" class="icon default"></div>
   </body>
   <script>
     const icon = document.getElementById("icon");
@@ -16,16 +16,16 @@
     });
 
     window.electron.receive("start-running", () => {
-      icon.className = "floating-icon running";
+      icon.className = "icon running";
     });
 
     window.electron.receive(
       "stop-running",
-      () => (icon.className = "floating-icon completed")
+      () => (icon.className = "icon completed")
     );
     window.electron.receive(
       "reset-running",
-      () => (icon.className = "floating-icon")
+      () => (icon.className = "icon default")
     );
 
     // draggable

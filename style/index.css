@@ -3,53 +3,76 @@ body {
   width: 100vw;
   height: 100vh;
   background-color: transparent;
-
 }
-.floating-icon {
-  width: 80px;
-  height: 80px;
+
+/* Ball Icon Styles */
+#icon {
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  background-color: #007bff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  animation: idle 3s infinite;
-  transition: background-color 0.3s, transform 0.3s;
+  position: relative;
+  margin: 20px auto;
+  transition: all 0.3s ease;
 }
 
-/* 运行中动画效果 */
-.floating-icon.running {
-  animation: spin 1s linear infinite;
-  background-color: #28a745;
+.icon.default {
+  background-image: url("../assets/icon.png");
+  background-size: cover;
 }
 
-/* 运行完成动画效果 */
-.floating-icon.completed {
+.icon.running {
+  background: linear-gradient(45deg, #28a745, #85e0a1);
+  animation: rotate 2s linear infinite;
+}
+
+.icon.failure {
+  background-color: #dc3545;
+  animation: shake-fail 0.5s infinite;
+}
+
+.icon.completed {
   background-color: #ffc107;
-  animation: bounce 1s infinite;
+  animation: bounce-complete 1s infinite;
 }
 
-/* 动画 - 闲置状态 */
-@keyframes idle {
+@keyframes scale {
   0%,
   100% {
-    transform: translateY(0);
+    transform: scale(1);
   }
   50% {
-    transform: translateY(-5px);
+    transform: scale(1.2);
   }
 }
 
-/* 动画 - 旋转（运行中） */
-@keyframes spin {
-  from {
+@keyframes rotate {
+  0% {
     transform: rotate(0deg);
   }
-  to {
+  100% {
     transform: rotate(360deg);
   }
 }
 
-/* 动画 - 弹跳（运行完成） */
-@keyframes bounce {
+@keyframes shake-fail {
+  0% {
+    transform: translate(0);
+  }
+  25% {
+    transform: translate(-5px);
+  }
+  50% {
+    transform: translate(5px);
+  }
+  75% {
+    transform: translate(-5px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+@keyframes bounce-complete {
   0%,
   100% {
     transform: translateY(0);
