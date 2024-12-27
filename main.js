@@ -3,11 +3,11 @@ const path = require("path");
 
 let floatWindow;
 
-// 仅在开发模式下启用热更新
-require("electron-reload")(path.join(__dirname, ".."), {
-  electron: require(`${__dirname}/node_modules/electron`),
-  hardResetMethod: "exit",
-});
+// // 仅在开发模式下启用热更新
+// require("electron-reload")(path.join(__dirname, ".."), {
+//   electron: require(`${__dirname}/node_modules/electron`),
+//   hardResetMethod: "exit",
+// });
 
 app.whenReady().then(createFloatWindow);
 
@@ -63,8 +63,10 @@ ipcMain.on("move-float-icon", (event, position) => {
   }
 });
 
-ipcMain.on("open-main-window", () => {
-  let mainWindow = new BrowserWindow({
+let mainWindow;
+function createMainWindow() {
+  if (mainWindow) return;
+  mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     devTools: true, // 启用开发者工具
@@ -74,11 +76,17 @@ ipcMain.on("open-main-window", () => {
       enableRemoteModule: false, // 禁用远程模块
     },
   });
+
+  mainWindow.webContents.openDevTools();
   mainWindow.loadURL("file://" + __dirname + "/page.html");
   // 打开调试面板
   mainWindow.webContents.openDevTools();
+
   mainWindow.on("close", (e) => {
     e.preventDefault();
     mainWindow.hide();
+    mainWindow = null;
   });
-});
+}
+
+ipcMain.on("open-main-window", createMainWindow);
